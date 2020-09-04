@@ -1,0 +1,21 @@
+﻿<Window x:Class="RaiseHandApp.joinmeeting"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RaiseHandApp"
+        mc:Ignorable="d"
+        Title="Join Meeting" Height="217.38" Width="579.703"
+        Closing="Wnd_Closing">
+    <Grid Margin="0,0,0,5">
+        <Label x:Name="label_UserName_Copy2" Content="Meeting Number" HorizontalAlignment="Left" Margin="26,8,-139,0" VerticalAlignment="Top" Width="113"/>
+        <TextBox x:Name="textBox_meetingnumber_api" HorizontalAlignment="Left" Height="26" Margin="185,8,-358,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
+        <Button x:Name="button_join_api" Content="Join" HorizontalAlignment="Left" Height="44" Margin="375,12,-517,0" VerticalAlignment="Top" Width="142" Click="button_join_api_Click"/>
+        <Label x:Name="label_AccessToken" Content="Password" HorizontalAlignment="Left" Margin="26,39,-139,0" VerticalAlignment="Top" Width="113"/>
+        <TextBox x:Name="textBox_Password" HorizontalAlignment="Left" Height="26" Margin="185,39,-358,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
+        <Label x:Name="label_DisplayName" Content="Display Name" HorizontalAlignment="Left" Margin="26,70,-139,0" VerticalAlignment="Top" Width="113"/>
+        <TextBox x:Name="textBox_DisplayName" HorizontalAlignment="Left" Height="26" Margin="185,70,-358,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
+        <Label x:Name="feedback" Content="" HorizontalAlignment="Left" Margin="0,145,0,0" Width="567" Height="26" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
