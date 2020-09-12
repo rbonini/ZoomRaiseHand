@@ -108,6 +108,10 @@
     <Compile Include="joinmeeting.xaml.cs">
       <DependentUpon>joinmeeting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ParticpantEventArgs.cs" />
+    <Compile Include="UI\UIParticipantListItem.xaml.cs">
+      <DependentUpon>"UIParticipantListItem.xaml</DependentUpon>
+    </Compile>
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -125,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="joinmeeting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UIParticipantListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

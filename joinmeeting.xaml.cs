@@ -17,6 +17,7 @@ using System.Data.OleDb;
 using System.Runtime.CompilerServices;
 using System.IO;
 using Newtonsoft.Json;
+using RaiseHandApp.UI;
 
 namespace RaiseHandApp
 {
@@ -39,8 +40,27 @@ namespace RaiseHandApp
 
             var settingstrings = File.ReadAllText($"{AppDomain.CurrentDomain.BaseDirectory}\\Particpants.json");
 
-
             this.settings = JsonConvert.DeserializeObject<ParticipantSettings>(settingstrings);
+
+            foreach( var name in this.settings.Participants)
+            {
+                var control = new UIParticipantListItem(name.Name);
+
+                control.RemoveClicked += Control_RemoveClicked;
+
+                this.participantStack.Children.Add(control);
+            }
+
+            feedback.Content = "Settings Loaded";
+        }
+
+        private void Control_RemoveClicked(object sender, ParticpantEventArgs e)
+        {
+            var item = this.settings.Participants.First(g => g.Name == e.Name);
+
+            this.settings.Participants.Remove(item);
+
+            this.participantStack.Children.Remove((sender as UIElement));
         }
 
         //ZOOM_SDK_DOTNET_WRAP.onMeetingStatusChanged
@@ -261,6 +281,15 @@ namespace RaiseHandApp
         void Wnd_Closing(object sender, CancelEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var settingstrings = JsonConvert.SerializeObject(this.settings);
+
+            var path = File.ReadAllText($"{AppDomain.CurrentDomain.BaseDirectory}\\Particpants.json");
+
+            File.WriteAllText(path, settingstrings);
         }
     }
 }

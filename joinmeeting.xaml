@@ -5,17 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RaiseHandApp"
         mc:Ignorable="d"
-        Title="Join Meeting" Height="217.38" Width="579.703"
+        Title="Join Meeting" Height="291.704" Width="579.703"
         Closing="Wnd_Closing">
     <Grid Margin="0,0,0,5">
-        <Label x:Name="label_UserName_Copy2" Content="Meeting Number" HorizontalAlignment="Left" Margin="26,8,-139,0" VerticalAlignment="Top" Width="113"/>
-        <TextBox x:Name="textBox_meetingnumber_api" HorizontalAlignment="Left" Height="26" Margin="185,8,-358,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
-        <Button x:Name="button_join_api" Content="Join" HorizontalAlignment="Left" Height="44" Margin="375,12,-517,0" VerticalAlignment="Top" Width="142" Click="button_join_api_Click"/>
-        <Label x:Name="label_AccessToken" Content="Password" HorizontalAlignment="Left" Margin="26,39,-139,0" VerticalAlignment="Top" Width="113"/>
-        <TextBox x:Name="textBox_Password" HorizontalAlignment="Left" Height="26" Margin="185,39,-358,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
-        <Label x:Name="label_DisplayName" Content="Display Name" HorizontalAlignment="Left" Margin="26,70,-139,0" VerticalAlignment="Top" Width="113"/>
-        <TextBox x:Name="textBox_DisplayName" HorizontalAlignment="Left" Height="26" Margin="185,70,-358,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
-        <Label x:Name="feedback" Content="" HorizontalAlignment="Left" Margin="0,145,0,0" Width="567" Height="26" VerticalAlignment="Top"/>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="96*"/>
+            <RowDefinition Height="125*"/>
+            <RowDefinition Height="33*"/>
+            <RowDefinition Height="2"/>
+        </Grid.RowDefinitions>
+        <Label  x:Name="label_UserName_Copy2" Content="Meeting Number" HorizontalAlignment="Left" Margin="9,8,0,0" VerticalAlignment="Top" Width="113" Grid.Column="0" Height="26"/>
+        <TextBox  x:Name="textBox_meetingnumber_api" HorizontalAlignment="Left" Height="26" Margin="24,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173" Grid.Column="1"/>
+        <Button x:Name="button_join_api" Content="Join" HorizontalAlignment="Left" Height="44" Margin="68,7,0,0" VerticalAlignment="Top" Width="142" Click="button_join_api_Click" Grid.Column="2"/>
+        <Label x:Name="label_AccessToken" Content="Password" HorizontalAlignment="Left" Margin="9,39,0,0" VerticalAlignment="Top" Width="113" Grid.Column="0" Height="26"/>
+        <TextBox x:Name="textBox_Password" HorizontalAlignment="Left" Height="26" Margin="24,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173" Grid.Column="1"/>
+        <Label x:Name="label_DisplayName" Content="Display Name" HorizontalAlignment="Left" Margin="9,70,0,0" VerticalAlignment="Top" Width="113" Grid.Column="0" Height="26"/>
+        <TextBox x:Name="textBox_DisplayName" HorizontalAlignment="Left" Height="26" Margin="24,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173" Grid.Column="1"/>
+        <Label Content="Particpants" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="112" FontSize="18" FontWeight="Bold" Height="34"/>
+        <Button x:Name="addParticpantButton" Content="Add" HorizontalAlignment="Left" Margin="10,49,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Height="20"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="9,74,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Button_Click" Height="20"/>
+        <Label x:Name="feedback" Content="" HorizontalAlignment="Left" Width="567" Height="26" VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.Row="2"/>
+        <ScrollViewer Grid.Column="1" HorizontalAlignment="Left" Height="110" Margin="5,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="420" Grid.ColumnSpan="2">
+            <StackPanel x:Name="participantStack" />
+        </ScrollViewer>
     </Grid>
 </Window>
