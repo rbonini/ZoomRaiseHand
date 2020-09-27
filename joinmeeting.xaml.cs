@@ -291,5 +291,31 @@ namespace RaiseHandApp
 
             File.WriteAllText(path, settingstrings);
         }
+
+        private void addParticpantButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Instantiate the dialog box
+            AddParticipant dlg = new AddParticipant
+            {
+                // Configure the dialog box
+                Owner = this
+            };
+
+            // Open the dialog box modally
+             var result = dlg.ShowDialog();
+
+            if (result??false)
+            {
+                var name = dlg.ParticipantName;
+
+                var control = new UIParticipantListItem(name);
+
+                control.RemoveClicked += Control_RemoveClicked;
+
+                this.participantStack.Children.Add(control);
+            }
+
+            dlg.Close();
+        }
     }
 }
