@@ -287,9 +287,12 @@ namespace RaiseHandApp
         {
             var settingstrings = JsonConvert.SerializeObject(this.settings);
 
-            var path = File.ReadAllText($"{AppDomain.CurrentDomain.BaseDirectory}\\Particpants.json");
+            var path = $"{AppDomain.CurrentDomain.BaseDirectory}\\Particpants.json";
 
+            Console.WriteLine($"Saving to {path}");
             File.WriteAllText(path, settingstrings);
+
+            feedback.Content = "Settings saved";
         }
 
         private void addParticpantButton_Click(object sender, RoutedEventArgs e)
@@ -313,6 +316,8 @@ namespace RaiseHandApp
                 control.RemoveClicked += Control_RemoveClicked;
 
                 this.participantStack.Children.Add(control);
+
+                this.settings.Participants.Add(new RaiseHandParticipant() { Name = name });
             }
 
             dlg.Close();
