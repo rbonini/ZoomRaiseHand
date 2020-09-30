@@ -1,4 +1,13 @@
 {
+  "ReplaceAnd": true,
+  "SplitNamesOn": [
+    ",",
+    "&"
+  ],
+  "SkipCountNames": [
+    "Admin Admin",
+    "KHConf"
+  ],
   "Participants": [
     {
       "Name": "Roberto Bonini"

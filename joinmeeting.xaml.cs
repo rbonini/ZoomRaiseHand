@@ -30,8 +30,6 @@ namespace RaiseHandApp
         string userName;
         int count = 0;
         ParticipantSettings settings;
-
-        List<string> countexcludednames = new List<string> { "Admin Admin", "KHConf" };
         
         RaiseLowerHand raisescreen;
         public joinmeeting()
@@ -138,18 +136,19 @@ namespace RaiseHandApp
                 return result;
             }
 
-            char[] allowed = { ',', '&' };
-
             int returnValue = 1;
 
-            if (original.Contains(" and "))
+            if (settings.ReplaceAnd)
             {
-                original = original.Replace(" and ", " & ");
+                if (original.Contains(" and "))
+                {
+                    original = original.Replace(" and ", " & ");
+                }
             }
 
-            if (original.Any(g=> allowed.Contains(g)))
+            if (original.Any(g=> settings.SplitNamesOn.Contains(g)))
             {
-                returnValue += original.Split(allowed).Length-1;
+                returnValue += original.Split(settings.SplitNamesOn.ToArray()).Length-1;
             }
 
             return returnValue;
@@ -166,7 +165,7 @@ namespace RaiseHandApp
 
                 var name = user.GetUserNameW();
 
-                if (!countexcludednames.Contains(name))
+                if (!settings.SkipCountNames.Contains(name))
                 {
                     var participants = ExtractNumber(name);
 
