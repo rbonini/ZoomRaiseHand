@@ -24,7 +24,7 @@
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
+    <MapFileExtensions>false</MapFileExtensions>
     <InstallUrl>https://raisehandapp.blob.core.windows.net/release/</InstallUrl>
     <UpdateUrl>https://raisehandapp.blob.core.windows.net/release/</UpdateUrl>
     <SupportUrl>https://github.com/rbonini/ZoomRaiseHand</SupportUrl>
@@ -177,9 +177,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Resource Include="Appicon.ico">
+    <None Include="Appicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </None>
     <Content Include="Particpants.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
