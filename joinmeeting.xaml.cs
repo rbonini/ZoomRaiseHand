@@ -95,7 +95,7 @@ namespace RaiseHandApp
                         {
                             userid = user.GetUserID();
 
-                            raisescreen = new RaiseLowerHand(userid, settings)
+                            raisescreen = new RaiseLowerHand(userid, this.userName, settings)
                             {
                                 Title = name
                             };
@@ -258,7 +258,7 @@ namespace RaiseHandApp
                 this.userName = $"{textBox_DisplayName.Text}";
             }
 
-            join_api_param.meetingNumber = ulong.Parse(textBox_meetingnumber_api.Text.Replace("-",""));
+            join_api_param.meetingNumber = ulong.Parse(textBox_meetingnumber_api.Text.Replace("-","").Replace(" ", ""));
             join_api_param.psw = textBox_Password.Text;
             join_api_param.userName = this.userName;            
 
@@ -273,6 +273,45 @@ namespace RaiseHandApp
             else//error handle
             {
                 feedback.Content = $"Failed to join meeting {textBox_meetingnumber_api.Text}: {err}";
+                Console.WriteLine(err);
+            }
+        }
+
+        private void button_start_api_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterCallBack();
+            ZOOM_SDK_DOTNET_WRAP.StartParam param = new ZOOM_SDK_DOTNET_WRAP.StartParam();
+            param.userType = ZOOM_SDK_DOTNET_WRAP.SDKUserType.SDK_UT_NORMALUSER;
+            ZOOM_SDK_DOTNET_WRAP.StartParam4NormalUser start_normal_param = new ZOOM_SDK_DOTNET_WRAP.StartParam4NormalUser();
+
+            if (settings.Participants.Count > 1)
+            {
+                this.userName = $"{textBox_DisplayName.Text} x {settings.Participants.Count}";
+            }
+            else
+            {
+                this.userName = $"{textBox_DisplayName.Text}";
+            }
+
+            start_normal_param.meetingNumber = UInt64.Parse(textBox_meetingnumber_api.Text.Replace("-", "").Replace(" ", ""));
+            start_normal_param.participantId = this.userName;
+            start_normal_param.isAudioOff = false;
+            start_normal_param.isVideoOff = true;
+            start_normal_param.isDirectShareDesktop = false;
+
+            param.normaluserStart = start_normal_param;
+
+
+            ZOOM_SDK_DOTNET_WRAP.SDKError err = ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().Start(param);
+
+            if (SDKError.SDKERR_SUCCESS == err)
+            {
+                feedback.Content = $"Starting Meeting {textBox_meetingnumber_api.Text}: {err}";
+                Hide();
+            }
+            else//error handle
+            {
+                feedback.Content = $"Failed to start meeting {textBox_meetingnumber_api.Text}: {err}";
                 Console.WriteLine(err);
             }
         }
@@ -321,5 +360,7 @@ namespace RaiseHandApp
 
             dlg.Close();
         }
+
+        
     }
 }
