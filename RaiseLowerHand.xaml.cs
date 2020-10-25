@@ -26,7 +26,7 @@ namespace RaiseHandApp
         uint userid;
 
         int participants;
-        public RaiseLowerHand(uint userid, ParticipantSettings settings)
+        public RaiseLowerHand(uint userid, string defaultName, ParticipantSettings settings)
         {
             InitializeComponent();
 
@@ -35,14 +35,31 @@ namespace RaiseHandApp
 
             this.participants = settings.Participants.Count;
 
-            foreach (var hand in settings.Participants)
+            if (settings.Participants.Any())
+            {
+                foreach (var hand in settings.Participants)
+                {
+                    var newbutton = new Button()
+                    {
+                        Content = hand.Name,
+                        Width = 120,
+                        Height = 50,
+                        Margin = new Thickness(10, 5, 0, 10)
+                    };
+
+                    newbutton.Click += raise_Click;
+
+                    stack1.Children.Add(newbutton);
+                }
+            }
+            else
             {
                 var newbutton = new Button()
                 {
-                    Content = hand.Name,
+                    Content = defaultName,
                     Width = 120,
                     Height = 50,
-                    Margin = new Thickness(10,5,0,10)
+                    Margin = new Thickness(10, 5, 0, 10)
                 };
 
                 newbutton.Click += raise_Click;

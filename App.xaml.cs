@@ -52,7 +52,17 @@ namespace RaiseHandApp
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             //clean up sdk
-            CZoomSDKeDotNetWrap.Instance.CleanUp();
+            try
+            {
+
+
+                CZoomSDKeDotNetWrap.Instance.CleanUp();
+            }
+            catch
+            {
+
+            }
+
         }
     }
 }

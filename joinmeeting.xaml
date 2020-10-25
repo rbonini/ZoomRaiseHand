@@ -14,14 +14,14 @@
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="96*"/>
-            <RowDefinition Height="125*"/>
+            <RowDefinition Height="101*"/>
+            <RowDefinition Height="120*"/>
             <RowDefinition Height="33*"/>
             <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
         <Label  x:Name="label_UserName_Copy2" Content="Meeting Number" HorizontalAlignment="Left" Margin="9,8,0,0" VerticalAlignment="Top" Width="113" Grid.Column="0" Height="26"/>
         <TextBox  x:Name="textBox_meetingnumber_api" HorizontalAlignment="Left" Height="26" Margin="24,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173" Grid.Column="1"/>
-        <Button x:Name="button_join_api" Content="Join" HorizontalAlignment="Left" Height="44" Margin="68,7,0,0" VerticalAlignment="Top" Width="142" Click="button_join_api_Click" Grid.Column="2"/>
+        <Button x:Name="button_join_api" Content="Join" HorizontalAlignment="Left" Height="44" Margin="68,4,0,0" VerticalAlignment="Top" Width="142" Click="button_join_api_Click" Grid.Column="2"/>
         <Label x:Name="label_AccessToken" Content="Password" HorizontalAlignment="Left" Margin="9,39,0,0" VerticalAlignment="Top" Width="113" Grid.Column="0" Height="26"/>
         <TextBox x:Name="textBox_Password" HorizontalAlignment="Left" Height="26" Margin="24,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173" Grid.Column="1"/>
         <Label x:Name="label_DisplayName" Content="Display Name" HorizontalAlignment="Left" Margin="9,70,0,0" VerticalAlignment="Top" Width="113" Grid.Column="0" Height="26"/>
@@ -33,5 +33,6 @@
         <ScrollViewer Grid.Column="1" HorizontalAlignment="Left" Height="110" Margin="5,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="420" Grid.ColumnSpan="2">
             <StackPanel x:Name="participantStack" />
         </ScrollViewer>
+        <Button x:Name="button_start_api" Content="Start" HorizontalAlignment="Left" Height="44" Margin="68,52,0,0" VerticalAlignment="Top" Width="142" Grid.Column="2" Click="button_start_api_Click"/>
     </Grid>
 </Window>
