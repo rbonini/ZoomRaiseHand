@@ -26,6 +26,7 @@ namespace RaiseHandApp
     /// </summary>
     public partial class joinmeeting : Window
     {
+        bool nologin = false;
         uint userid;
         string userName;
         int count = 0;
@@ -51,6 +52,12 @@ namespace RaiseHandApp
             }
 
             feedback.Content = "Settings Loaded";
+        }
+
+        public void setNoLogin()
+        {
+            nologin = true;
+            this.button_start_api.IsEnabled = false;
         }
 
         private void Control_RemoveClicked(object sender, ParticpantEventArgs e)
@@ -92,7 +99,7 @@ namespace RaiseHandApp
 
                         var name = user.GetUserNameW();
 
-                        if (name == userName && raisescreen == null)
+                        if (user.IsMySelf() && raisescreen == null)
                         {
                             userid = user.GetUserID();
 
@@ -255,6 +262,16 @@ namespace RaiseHandApp
 
         private void button_join_api_Click(object sender, RoutedEventArgs e)
         {
+
+            if (textBox_DisplayName.Text.Length == 0)
+            {
+                MessageBox.Show("Please fill in a display name",
+                                          "Error",
+                                          MessageBoxButton.OK,
+                                          MessageBoxImage.Warning);
+                return;
+            }
+
             RegisterCallBack();
             ZOOM_SDK_DOTNET_WRAP.JoinParam param = new ZOOM_SDK_DOTNET_WRAP.JoinParam();
             param.userType = SDKUserType.SDK_UT_NORMALUSER;

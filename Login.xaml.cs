@@ -91,5 +91,12 @@ namespace RaiseHandApp
         {
             Application.Current.Shutdown();
         }
+
+        private void but_nologin_Click(object sender, RoutedEventArgs e)
+        {
+            start_meeting_wnd.setNoLogin();
+            start_meeting_wnd.Show();
+            Hide();
+        }
     }
 }

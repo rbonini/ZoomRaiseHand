@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RaiseHandApp"
         mc:Ignorable="d"
-        Title="Login" Height="197.902" Width="571.746"
+        Title="Login" Height="184.705" Width="571.746"
         Closing="Wnd_Closing">
     <Grid Margin="0,0,0,5">
         <Label x:Name="Username" Content="Username" HorizontalAlignment="Left" Margin="78,23,0,0" VerticalAlignment="Top" Width="78"/>
@@ -13,6 +13,7 @@
         <Button x:Name="button_auth" Content="Login" HorizontalAlignment="Left" Height="36" Margin="397,83,0,0" VerticalAlignment="Top" Width="148" Click="button_auth_Click"/>
         <Label x:Name="password" Content="Password" HorizontalAlignment="Left" Margin="78,53,0,0" VerticalAlignment="Top" Width="78"/>
         <PasswordBox x:Name="textBox_Password" Height="25" Margin="180,53,85,0" VerticalAlignment="Top" />
-        <Label x:Name="feedback" Margin="0,124,0,0" Height="28" VerticalAlignment="Top"></Label>
+        <Label x:Name="feedback" Margin="10,132,0,0" HorizontalAlignment="Left" Width="544" Height="17" VerticalAlignment="Top"/>
+        <Button x:Name="but_nologin" Content="I Don't Have a Login" HorizontalAlignment="Left" Margin="214,91,0,0" VerticalAlignment="Top" Width="122" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF0224FD" Click="but_nologin_Click"/>
     </Grid>
 </Window>
