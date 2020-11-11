@@ -29,6 +29,7 @@ namespace RaiseHandApp
         uint userid;
         string userName;
         int count = 0;
+        
         ParticipantSettings settings;
         
         RaiseLowerHand raisescreen;
@@ -122,7 +123,7 @@ namespace RaiseHandApp
         }
 
 
-        public int ExtractNumber(string original)
+        public Tuple<bool,int> ExtractNumber(string original)
         {
             if (original.Any(c => char.IsDigit(c)))
             {
@@ -130,10 +131,10 @@ namespace RaiseHandApp
 
                 if (result > 10)
                 {
-                    return 1;
+                    return  new Tuple<bool, int>(false,1);
                 }
 
-                return result;
+                return new Tuple<bool, int>(false, result);
             }
 
             int returnValue = 1;
@@ -151,7 +152,7 @@ namespace RaiseHandApp
                 returnValue += original.Split(settings.SplitNamesOn.ToArray()).Length-1;
             }
 
-            return returnValue;
+                return new Tuple<bool, int>(true, returnValue);
         }
 
         public void UpdateCount()
@@ -171,7 +172,12 @@ namespace RaiseHandApp
 
                     Console.WriteLine($"{name}: ({participants})");
 
-                    count += participants;
+                    //if ( participants.Item1 && CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingParticipantsController().GetUserByUserID(this.userid).IsHost())
+                    //{
+                    //    ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingParticipantsController().ChangeUserName(userid, $"{name} x {count}", false);
+                    //}
+
+                    count += participants.Item2;
                 }
             }
 
@@ -208,10 +214,15 @@ namespace RaiseHandApp
         }
         public void onLowOrRaiseHandStatusChanged(bool bLow, uint userid)
         {
-            if (bLow)
+            if (bLow && userid == this.userid)
             {
                 CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingParticipantsController().ChangeUserName(userid, userName, false);
             }
+
+            //if (CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingParticipantsController().GetUserByUserID(this.userid).IsHost())
+            //{
+            //    CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingAudioController().MuteAudio(userid, false);
+            //}
         }
         public void onUserNameChanged(uint userId, string userName)
         {
@@ -225,6 +236,7 @@ namespace RaiseHandApp
                 }
             }
         }
+
         private void RegisterCallBack()
         {
             CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().Add_CB_onMeetingStatusChanged(onMeetingStatusChanged);
