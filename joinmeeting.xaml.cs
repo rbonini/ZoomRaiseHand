@@ -108,6 +108,8 @@ namespace RaiseHandApp
                                 Title = name
                             };
 
+                                raisescreen.RequestEdit += Raisescreen_RequestEdit;
+
                             raisescreen.Show();
 
                             Console.WriteLine(userid.ToString());
@@ -129,6 +131,14 @@ namespace RaiseHandApp
             }
         }
 
+        private void Raisescreen_RequestEdit(string obj)
+        {
+            textBox_Password.IsEnabled = false;
+            textBox_meetingnumber_api.IsEnabled = false;
+
+
+            this.Show();
+        }
 
         public Tuple<bool,int> ExtractNumber(string original)
         {
