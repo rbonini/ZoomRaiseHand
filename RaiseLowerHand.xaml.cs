@@ -22,9 +22,11 @@ namespace RaiseHandApp
     public partial class RaiseLowerHand : Window
     {
 
+        public event Action<string> RequestEdit;
+
+        string defaultName;
         ParticipantSettings settings;
         uint userid;
-
         int participants;
         public RaiseLowerHand(uint userid, string defaultName, ParticipantSettings settings)
         {
@@ -34,6 +36,33 @@ namespace RaiseHandApp
             this.userid = userid;
 
             this.participants = settings.Participants.Count;
+
+            this.defaultName = defaultName;
+
+            UpdateButtons();
+        }
+
+        public void UpdateCount(int count)
+        {
+            label_count.Content = $"Current Count: {count}";
+        }
+
+        public void UpdateParticipants(string defaultName,ParticipantSettings settings)
+        {
+            this.settings = settings;
+
+            this.participants = settings.Participants.Count;
+
+            this.defaultName = defaultName;
+
+            UpdateButtons();
+
+        }
+
+
+        private void UpdateButtons()
+        {
+            stack1.Children.Clear();
 
             if (settings.Participants.Any())
             {
@@ -66,14 +95,7 @@ namespace RaiseHandApp
 
                 stack1.Children.Add(newbutton);
             }
-
         }
-
-        public void UpdateCount(int count)
-        {
-            label_count.Content = $"Current Count: {count}";
-        }
-
         private void raise_Click(object sender, RoutedEventArgs e)
         {
             string text;
@@ -94,6 +116,12 @@ namespace RaiseHandApp
         private void lowerHand_Click(object sender, RoutedEventArgs e)
         {
             ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingParticipantsController().LowerHand(userid);
+        }
+
+        private void editHands_Click(object sender, RoutedEventArgs e)
+        {
+            // Your logic
+            RequestEdit?.Invoke("sample parameter");
         }
     }
 }

@@ -29,10 +29,12 @@
         <Label Content="Particpants" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="112" FontSize="18" FontWeight="Bold" Height="34"/>
         <Button x:Name="addParticpantButton" Content="Add" HorizontalAlignment="Left" Margin="10,49,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Height="20" Click="addParticpantButton_Click"/>
         <Button Content="Save" HorizontalAlignment="Left" Margin="9,74,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Button_Click" Height="20"/>
-        <Label x:Name="feedback" Content="" HorizontalAlignment="Left" Width="567" Height="26" VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.Row="2"/>
+        <Label x:Name="feedback" HorizontalAlignment="Left" Width="353" Height="26" VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.Row="2"/>
+
         <ScrollViewer Grid.Column="1" HorizontalAlignment="Left" Height="110" Margin="5,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="420" Grid.ColumnSpan="2">
             <StackPanel x:Name="participantStack" />
         </ScrollViewer>
         <Button x:Name="button_start_api" Content="Start" HorizontalAlignment="Left" Height="44" Margin="68,52,0,0" VerticalAlignment="Top" Width="142" Grid.Column="2" Click="button_start_api_Click"/>
+        <Button x:Name="button_Update" Visibility="Hidden" Content="Update" HorizontalAlignment="Left" Margin="145.333,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="buttonUpdate_click" Height="20" Grid.Column="2"/>
     </Grid>
 </Window>

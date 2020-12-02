@@ -11,5 +11,6 @@
         <StackPanel x:Name="stack1" Orientation="Horizontal" />
         <Label Name="label_count" Content="Current Count: " Margin="0,112,231,0" Height="25" VerticalAlignment="Top"/>
         <Button Name ="lowerHand"  Content="Lower Hand" HorizontalAlignment="Left" Margin="372,117,0,0" VerticalAlignment="Top" Width="75" Click="lowerHand_Click"/>
+        <Button x:Name ="editHands"  Content="Edit Hands" HorizontalAlignment="Left" Margin="292,117,0,0" VerticalAlignment="Top" Width="75" Click="editHands_Click"/>
     </Grid>
 </Window>

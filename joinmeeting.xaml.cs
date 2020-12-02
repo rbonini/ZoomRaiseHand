@@ -108,6 +108,8 @@ namespace RaiseHandApp
                                 Title = name
                             };
 
+                                raisescreen.RequestEdit += Raisescreen_RequestEdit;
+
                             raisescreen.Show();
 
                             Console.WriteLine(userid.ToString());
@@ -129,6 +131,17 @@ namespace RaiseHandApp
             }
         }
 
+        private void Raisescreen_RequestEdit(string obj)
+        {
+            textBox_Password.IsEnabled = false;
+            textBox_meetingnumber_api.IsEnabled = false;
+            button_join_api.IsEnabled = false;
+            button_start_api.IsEnabled = false;
+
+            button_Update.Visibility = Visibility.Visible;
+
+            this.Show();
+        }
 
         public Tuple<bool,int> ExtractNumber(string original)
         {
@@ -360,6 +373,35 @@ namespace RaiseHandApp
             File.WriteAllText(path, settingstrings);
 
             feedback.Content = "Settings saved";
+        }
+
+        private void buttonUpdate_click(object sender, RoutedEventArgs e)
+        {
+            if (settings.Participants.Count > 1)
+            {
+                this.userName = $"{textBox_DisplayName.Text} x {settings.Participants.Count}";
+            }
+            else
+            {
+                this.userName = $"{textBox_DisplayName.Text}";
+            }
+
+            raisescreen.UpdateParticipants(this.userName, this.settings);
+
+            ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingParticipantsController().ChangeUserName(userid, this.userName, false);
+
+            this.Hide();
+
+            textBox_Password.IsEnabled = true;
+            textBox_meetingnumber_api.IsEnabled = true;
+            button_join_api.IsEnabled = true;
+
+            if (!nologin)
+            {
+                button_start_api.IsEnabled = true;
+            }
+
+            button_Update.Visibility = Visibility.Visible;
         }
 
         private void addParticpantButton_Click(object sender, RoutedEventArgs e)
