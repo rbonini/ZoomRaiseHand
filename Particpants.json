@@ -2,7 +2,8 @@
   "ReplaceAnd": true,
   "SplitNamesOn": [
     ",",
-    "&"
+    "&",
+    "+"
   ],
   "SkipCountNames": [
     "Admin Admin",

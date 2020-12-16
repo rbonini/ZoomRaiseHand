@@ -145,9 +145,11 @@ namespace RaiseHandApp
 
         public Tuple<bool,int> ExtractNumber(string original)
         {
-            if (original.Any(c => char.IsDigit(c)))
+            var loweroriginal = original.ToLowerInvariant();
+
+            if (loweroriginal.Any(c => char.IsDigit(c)))
             {
-                var result = int.Parse(new string(original.Where(c => char.IsDigit(c)).ToArray()));
+                var result = int.Parse(new string(loweroriginal.Where(c => char.IsDigit(c)).ToArray()));
 
                 if (result > 10)
                 {
@@ -161,27 +163,33 @@ namespace RaiseHandApp
 
             if (settings.ReplaceAnd)
             {
-                if (original.Contains(" and "))
+                if (loweroriginal.Contains(" and "))
                 {
-                    original = original.Replace(" and ", " & ");
+                    loweroriginal = loweroriginal.Replace(" and ", " & ");
                 }
             }
 
-            if (original.Any(g=> settings.SplitNamesOn.Contains(g)))
+            if (loweroriginal.Any(g=> settings.SplitNamesOn.Contains(g)))
             {
-                returnValue += original.Split(settings.SplitNamesOn.ToArray()).Length-1;
+                returnValue += loweroriginal.Split(settings.SplitNamesOn.ToArray()).Length-1;
             }
 
                 return new Tuple<bool, int>(true, returnValue);
         }
 
-        public void UpdateCount()
+        public void UpdateCount( uint overrideid = 0, int overridecount =0)
         {
             count = 0;
             var list = CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingParticipantsController().GetParticipantsList();
 
             foreach (var item in list)
             {
+                if(overrideid>0 && item == overrideid)
+                {
+                    count += overridecount;
+
+                    continue;
+                }
                 var user = CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingParticipantsController().GetUserByUserID(item);
 
                 var name = user.GetUserNameW();
@@ -237,6 +245,11 @@ namespace RaiseHandApp
             if (bLow && userid == this.userid)
             {
                 CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingParticipantsController().ChangeUserName(userid, userName, false);
+
+                if(raisescreen!= null)
+                {
+                    raisescreen.ClearToggles();
+                }
             }
 
             //if (CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingParticipantsController().GetUserByUserID(this.userid).IsHost())
@@ -253,6 +266,23 @@ namespace RaiseHandApp
                 if (raisescreen != null)
                 {
                     raisescreen.UpdateCount(count);
+                }
+            }
+            else
+            {
+                if (raisescreen != null && raisescreen.Answering ==false && this.userName != userName)
+                {
+                    if (userName.EndsWith($"x {this.settings.Participants.Count}"))
+                    {
+                        this.userName = userName.Replace($"x {this.settings.Participants.Count}", "");
+                    }
+                    else
+                    {
+                        this.userName = userName;
+                    }
+                    this.textBox_DisplayName.Text = this.userName;
+
+                    raisescreen.UpdateParticipants(this.userName, this.settings);
                 }
             }
         }
@@ -360,7 +390,15 @@ namespace RaiseHandApp
 
         void Wnd_Closing(object sender, CancelEventArgs e)
         {
-            Application.Current.Shutdown();
+            if (button_Update.Visibility != Visibility.Visible)
+            {
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                e.Cancel = true;
+               
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -377,6 +415,11 @@ namespace RaiseHandApp
 
         private void buttonUpdate_click(object sender, RoutedEventArgs e)
         {
+            FinishUpdate();
+        }
+
+        private void FinishUpdate()
+        {
             if (settings.Participants.Count > 1)
             {
                 this.userName = $"{textBox_DisplayName.Text} x {settings.Participants.Count}";
@@ -386,9 +429,16 @@ namespace RaiseHandApp
                 this.userName = $"{textBox_DisplayName.Text}";
             }
 
-            raisescreen.UpdateParticipants(this.userName, this.settings);
+            var current = raisescreen.CurrentParticipants;
+            raisescreen.UpdateParticipants(this.userName, this.settings);            
 
             ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingParticipantsController().ChangeUserName(userid, this.userName, false);
+
+            if (this.settings.Participants.Count != current)
+            {
+                UpdateCount(this.userid, this.settings.Participants.Count);
+                raisescreen.UpdateCount(count);
+            }
 
             this.Hide();
 
@@ -401,7 +451,7 @@ namespace RaiseHandApp
                 button_start_api.IsEnabled = true;
             }
 
-            button_Update.Visibility = Visibility.Visible;
+            button_Update.Visibility = Visibility.Hidden;
         }
 
         private void addParticpantButton_Click(object sender, RoutedEventArgs e)
