@@ -280,7 +280,17 @@ namespace RaiseHandApp
                     {
                         this.userName = userName;
                     }
+
                     this.textBox_DisplayName.Text = this.userName;
+
+                    if (settings.Participants.Count > 1)
+                    {
+                        this.userName = $"{this.userName} x {settings.Participants.Count}";
+                    }
+                    else
+                    {
+                        this.userName = $"{this.userName}";
+                    }
 
                     raisescreen.UpdateParticipants(this.userName, this.settings);
                 }
