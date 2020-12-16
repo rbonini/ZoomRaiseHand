@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -24,10 +25,12 @@ namespace RaiseHandApp
 
         public event Action<string> RequestEdit;
 
+        public bool Answering = false;
+
         string defaultName;
         ParticipantSettings settings;
         uint userid;
-        int participants;
+        public int CurrentParticipants;
         public RaiseLowerHand(uint userid, string defaultName, ParticipantSettings settings)
         {
             InitializeComponent();
@@ -35,7 +38,7 @@ namespace RaiseHandApp
             this.settings = settings;
             this.userid = userid;
 
-            this.participants = settings.Participants.Count;
+            this.CurrentParticipants = settings.Participants.Count;
 
             this.defaultName = defaultName;
 
@@ -51,12 +54,23 @@ namespace RaiseHandApp
         {
             this.settings = settings;
 
-            this.participants = settings.Participants.Count;
+            this.CurrentParticipants = settings.Participants.Count;
 
             this.defaultName = defaultName;
 
+            this.Title = defaultName;
+
             UpdateButtons();
 
+        }
+
+        public  void ClearToggles()
+        {
+            foreach (ToggleButton button in stack1.Children)
+            {
+                button.IsChecked = false;
+            }
+            this.Answering = false;
         }
 
 
@@ -68,7 +82,7 @@ namespace RaiseHandApp
             {
                 foreach (var hand in settings.Participants)
                 {
-                    var newbutton = new Button()
+                    var newbutton = new ToggleButton()
                     {
                         Content = hand.Name,
                         Width = 120,
@@ -83,7 +97,7 @@ namespace RaiseHandApp
             }
             else
             {
-                var newbutton = new Button()
+                var newbutton = new ToggleButton()
                 {
                     Content = defaultName,
                     Width = 120,
@@ -100,15 +114,20 @@ namespace RaiseHandApp
         {
             string text;
 
-            var button = (Button)sender;
-            if (this.participants>1)
+            var button = (ToggleButton)sender;
+            if (this.CurrentParticipants>1)
             {
-                text = $"{button.Content} ({participants})";
+                text = $"{button.Content} ({CurrentParticipants})";
             }
             else
             {
                 text = button.Content.ToString();
             }
+
+            button.IsChecked = true;
+
+            this.Answering = true;
+
             ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingParticipantsController().ChangeUserName(userid, text , false);
             ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().GetMeetingParticipantsController().RaiseHand();
         }
