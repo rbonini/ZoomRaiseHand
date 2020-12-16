@@ -128,7 +128,7 @@
     </Compile>
     <Compile Include="UI\ParticpantEventArgs.cs" />
     <Compile Include="UI\UIParticipantListItem.xaml.cs">
-      <DependentUpon>"UIParticipantListItem.xaml</DependentUpon>
+      <DependentUpon>UIParticipantListItem.xaml</DependentUpon>
     </Compile>
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
