@@ -326,12 +326,7 @@ namespace RaiseHandApp
             }
 
             RegisterCallBack();
-            ZOOM_SDK_DOTNET_WRAP.JoinParam param = new ZOOM_SDK_DOTNET_WRAP.JoinParam();
-            param.userType = SDKUserType.SDK_UT_NORMALUSER;
-            ZOOM_SDK_DOTNET_WRAP.JoinParam4NormalUser join_api_param = new ZOOM_SDK_DOTNET_WRAP.JoinParam4NormalUser();
-
-
-            if (settings.Participants.Count > 1)
+             if (settings.Participants.Count > 1)
             {
                 this.userName = $"{textBox_DisplayName.Text} x {settings.Participants.Count}";
             }
@@ -340,13 +335,33 @@ namespace RaiseHandApp
                 this.userName = $"{textBox_DisplayName.Text}";
             }
 
-            join_api_param.meetingNumber = ulong.Parse(textBox_meetingnumber_api.Text.Replace("-","").Replace(" ", ""));
-            join_api_param.psw = textBox_Password.Text;
-            join_api_param.userName = this.userName;            
+            ZOOM_SDK_DOTNET_WRAP.JoinParam param  = new JoinParam();
 
-            param.normaluserJoin = join_api_param;
+            if (nologin)
+            {
+                param = new ZOOM_SDK_DOTNET_WRAP.JoinParam();
+                param.userType = ZOOM_SDK_DOTNET_WRAP.SDKUserType.SDK_UT_WITHOUT_LOGIN;
+                ZOOM_SDK_DOTNET_WRAP.JoinParam4WithoutLogin join_api_param = new ZOOM_SDK_DOTNET_WRAP.JoinParam4WithoutLogin();
+                join_api_param.meetingNumber = ulong.Parse(textBox_meetingnumber_api.Text);
+                join_api_param.userName = this.userName;
+                join_api_param.psw = textBox_Password.Text;
+                param.withoutloginJoin = join_api_param;
+            }
+            else
+            {
+                param = new ZOOM_SDK_DOTNET_WRAP.JoinParam();
+                param.userType = SDKUserType.SDK_UT_NORMALUSER;
+                ZOOM_SDK_DOTNET_WRAP.JoinParam4NormalUser join_api_param = new ZOOM_SDK_DOTNET_WRAP.JoinParam4NormalUser();
+
+                join_api_param.meetingNumber = ulong.Parse(textBox_meetingnumber_api.Text.Replace("-","").Replace(" ", ""));
+                join_api_param.psw = textBox_Password.Text;
+                join_api_param.userName = this.userName;            
+
+                param.normaluserJoin = join_api_param;
+            }
 
             ZOOM_SDK_DOTNET_WRAP.SDKError err = CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().Join(param);
+
             if (SDKError.SDKERR_SUCCESS == err)
             {
                 feedback.Content = $"Joining Meeting {textBox_meetingnumber_api.Text}: {err}";
