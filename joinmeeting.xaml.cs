@@ -140,7 +140,6 @@ namespace RaiseHandApp
 
         private void Raisescreen_RequestEdit(string obj)
         {
-            textBox_Password.IsEnabled = false;
             textBox_meetingnumber_api.IsEnabled = false;
             button_join_api.IsEnabled = false;
             button_start_api.IsEnabled = false;
@@ -463,7 +462,6 @@ namespace RaiseHandApp
 
             this.Hide();
 
-            textBox_Password.IsEnabled = true;
             textBox_meetingnumber_api.IsEnabled = true;
             button_join_api.IsEnabled = true;
 
