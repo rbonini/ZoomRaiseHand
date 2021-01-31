@@ -106,7 +106,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="zoom_sdk_dotnet_wrap, Version=1.0.7673.31819, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="zoom_sdk_dotnet_wrap, Version=1.0.7701.28009, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\zoom_sdk_dotnet_wrap.dll</HintPath>
     </Reference>
@@ -315,6 +315,7 @@
     <None Include="wr_ding.pcm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="zoom_sdk_dotnet_wrap.dll" />
     <None Include="zoom_sdk_dotnet_wrap.dll.metagen" />
   </ItemGroup>
   <ItemGroup>
@@ -472,9 +473,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ZoomDocConverter.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="zoom_sdk_dotnet_wrap.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="zoom_sdk_dotnet_wrap.pdb" />
