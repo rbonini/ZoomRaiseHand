@@ -52,6 +52,8 @@ namespace RaiseHandApp
             }
 
             feedback.Content = "Settings Loaded";
+
+            RegisterCallBack(); ;
         }
 
         public void setNoLogin()
@@ -125,15 +127,19 @@ namespace RaiseHandApp
                         break;
                 }
                 default:
+
                     feedback.Content = $"waiting to join {textBox_meetingnumber_api.Text}: {status}";
+
+                   
                     //todo
                     break;
             }
+
+            Console.WriteLine(feedback.Content);
         }
 
         private void Raisescreen_RequestEdit(string obj)
         {
-            textBox_Password.IsEnabled = false;
             textBox_meetingnumber_api.IsEnabled = false;
             button_join_api.IsEnabled = false;
             button_start_api.IsEnabled = false;
@@ -325,10 +331,8 @@ namespace RaiseHandApp
                 return;
             }
 
-            RegisterCallBack();
-            ZOOM_SDK_DOTNET_WRAP.JoinParam param = new ZOOM_SDK_DOTNET_WRAP.JoinParam();
-            param.userType = SDKUserType.SDK_UT_NORMALUSER;
-            ZOOM_SDK_DOTNET_WRAP.JoinParam4NormalUser join_api_param = new ZOOM_SDK_DOTNET_WRAP.JoinParam4NormalUser();
+
+          
 
 
             if (settings.Participants.Count > 1)
@@ -339,14 +343,21 @@ namespace RaiseHandApp
             {
                 this.userName = $"{textBox_DisplayName.Text}";
             }
+            ZOOM_SDK_DOTNET_WRAP.JoinParam param = new ZOOM_SDK_DOTNET_WRAP.JoinParam();
+            param.userType = ZOOM_SDK_DOTNET_WRAP.SDKUserType.SDK_UT_WITHOUT_LOGIN;
+            ZOOM_SDK_DOTNET_WRAP.JoinParam4WithoutLogin join_api_param = new ZOOM_SDK_DOTNET_WRAP.JoinParam4WithoutLogin();
+            join_api_param.meetingNumber = UInt64.Parse(textBox_meetingnumber_api.Text);
+            join_api_param.userName = this.userName;
+            param.withoutloginJoin = join_api_param;
 
-            join_api_param.meetingNumber = ulong.Parse(textBox_meetingnumber_api.Text.Replace("-","").Replace(" ", ""));
-            join_api_param.psw = textBox_Password.Text;
-            join_api_param.userName = this.userName;            
+            ZOOM_SDK_DOTNET_WRAP.SDKError err = ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().Join(param);
+            if (ZOOM_SDK_DOTNET_WRAP.SDKError.SDKERR_SUCCESS == err)
+            {
+                Hide();
+            }
+            else//error handle
+            { }
 
-            param.normaluserJoin = join_api_param;
-
-            ZOOM_SDK_DOTNET_WRAP.SDKError err = CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().Join(param);
             if (SDKError.SDKERR_SUCCESS == err)
             {
                 feedback.Content = $"Joining Meeting {textBox_meetingnumber_api.Text}: {err}";
@@ -361,7 +372,6 @@ namespace RaiseHandApp
 
         private void button_start_api_Click(object sender, RoutedEventArgs e)
         {
-            RegisterCallBack();
             ZOOM_SDK_DOTNET_WRAP.StartParam param = new ZOOM_SDK_DOTNET_WRAP.StartParam();
             param.userType = ZOOM_SDK_DOTNET_WRAP.SDKUserType.SDK_UT_NORMALUSER;
             ZOOM_SDK_DOTNET_WRAP.StartParam4NormalUser start_normal_param = new ZOOM_SDK_DOTNET_WRAP.StartParam4NormalUser();
@@ -452,7 +462,6 @@ namespace RaiseHandApp
 
             this.Hide();
 
-            textBox_Password.IsEnabled = true;
             textBox_meetingnumber_api.IsEnabled = true;
             button_join_api.IsEnabled = true;
 

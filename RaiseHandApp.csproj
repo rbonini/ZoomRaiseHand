@@ -106,7 +106,8 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="zoom_sdk_dotnet_wrap">
+    <Reference Include="zoom_sdk_dotnet_wrap, Version=1.0.7673.31819, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>.\zoom_sdk_dotnet_wrap.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -249,9 +250,20 @@
     <Content Include="CptInstall.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="directui_license.txt" />
+    <Resource Include="duilib_license.txt" />
+    <Content Include="libmpg123.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="nanosvg_LICENSE.txt" />
     <Content Include="Particpants.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="crashrpt_lang.ini" />
+    <None Include="dingdong.pcm" />
+    <None Include="dingdong1.pcm" />
+    <None Include="Droplet.pcm" />
+    <None Include="leave.pcm" />
     <None Include="meeting_chat_chime.pcm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -273,9 +285,37 @@
     <None Include="ring.pcm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="ringtone\G Arpeggio.pcm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ringtone\G Step.pcm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ringtone\Gamelan.pcm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ringtone\Pizzicato Strings.pcm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ringtone\Reed Organ.pcm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ringtone\ring.pcm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ringtone\Ukulele G.pcm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ringtone\Ukulele.pcm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ringtone\Vibraphone.pcm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="wr_ding.pcm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="zoom_sdk_dotnet_wrap.dll.metagen" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -324,7 +364,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="DuiLib.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="libcrypto-1_1.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -356,6 +396,12 @@
     <Content Include="reslib.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="ringtone\localization.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ringtone\ringtone.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="sdk.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -378,6 +424,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="turbojpeg.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UIBase.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="util.dll">
@@ -413,6 +462,9 @@
     <Content Include="zData.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="zKBCrypto.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="zlt.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -422,6 +474,10 @@
     <Content Include="ZoomDocConverter.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="zoom_sdk_dotnet_wrap.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="zoom_sdk_dotnet_wrap.pdb" />
     <Content Include="zSDK.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
