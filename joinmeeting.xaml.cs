@@ -52,6 +52,8 @@ namespace RaiseHandApp
             }
 
             feedback.Content = "Settings Loaded";
+
+            RegisterCallBack(); ;
         }
 
         public void setNoLogin()
@@ -125,10 +127,15 @@ namespace RaiseHandApp
                         break;
                 }
                 default:
+
                     feedback.Content = $"waiting to join {textBox_meetingnumber_api.Text}: {status}";
+
+                   
                     //todo
                     break;
             }
+
+            Console.WriteLine(feedback.Content);
         }
 
         private void Raisescreen_RequestEdit(string obj)
@@ -325,8 +332,13 @@ namespace RaiseHandApp
                 return;
             }
 
-            RegisterCallBack();
-             if (settings.Participants.Count > 1)
+
+            ZOOM_SDK_DOTNET_WRAP.JoinParam param = new ZOOM_SDK_DOTNET_WRAP.JoinParam();
+            param.userType = SDKUserType.SDK_UT_WITHOUT_LOGIN;
+            ZOOM_SDK_DOTNET_WRAP.JoinParam4WithoutLogin join_api_param = new ZOOM_SDK_DOTNET_WRAP.JoinParam4WithoutLogin();
+
+
+            if (settings.Participants.Count > 1)
             {
                 this.userName = $"{textBox_DisplayName.Text} x {settings.Participants.Count}";
             }
@@ -334,33 +346,14 @@ namespace RaiseHandApp
             {
                 this.userName = $"{textBox_DisplayName.Text}";
             }
+            ZOOM_SDK_DOTNET_WRAP.SDKError err;            
 
-            ZOOM_SDK_DOTNET_WRAP.JoinParam param  = new JoinParam();
+            join_api_param.meetingNumber = ulong.Parse(textBox_meetingnumber_api.Text.Replace("-", "").Replace(" ", ""));
+            join_api_param.userName = this.userName;
+            join_api_param.psw = textBox_Password.Text;
+            param.withoutloginJoin = join_api_param;
 
-            if (nologin)
-            {
-                param = new ZOOM_SDK_DOTNET_WRAP.JoinParam();
-                param.userType = ZOOM_SDK_DOTNET_WRAP.SDKUserType.SDK_UT_WITHOUT_LOGIN;
-                ZOOM_SDK_DOTNET_WRAP.JoinParam4WithoutLogin join_api_param = new ZOOM_SDK_DOTNET_WRAP.JoinParam4WithoutLogin();
-                join_api_param.meetingNumber = ulong.Parse(textBox_meetingnumber_api.Text);
-                join_api_param.userName = this.userName;
-                join_api_param.psw = textBox_Password.Text;
-                param.withoutloginJoin = join_api_param;
-            }
-            else
-            {
-                param = new ZOOM_SDK_DOTNET_WRAP.JoinParam();
-                param.userType = SDKUserType.SDK_UT_NORMALUSER;
-                ZOOM_SDK_DOTNET_WRAP.JoinParam4NormalUser join_api_param = new ZOOM_SDK_DOTNET_WRAP.JoinParam4NormalUser();
-
-                join_api_param.meetingNumber = ulong.Parse(textBox_meetingnumber_api.Text.Replace("-","").Replace(" ", ""));
-                join_api_param.psw = textBox_Password.Text;
-                join_api_param.userName = this.userName;            
-
-                param.normaluserJoin = join_api_param;
-            }
-
-            ZOOM_SDK_DOTNET_WRAP.SDKError err = CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().Join(param);
+            err = ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().Join(param);
 
             if (SDKError.SDKERR_SUCCESS == err)
             {
@@ -376,7 +369,6 @@ namespace RaiseHandApp
 
         private void button_start_api_Click(object sender, RoutedEventArgs e)
         {
-            RegisterCallBack();
             ZOOM_SDK_DOTNET_WRAP.StartParam param = new ZOOM_SDK_DOTNET_WRAP.StartParam();
             param.userType = ZOOM_SDK_DOTNET_WRAP.SDKUserType.SDK_UT_NORMALUSER;
             ZOOM_SDK_DOTNET_WRAP.StartParam4NormalUser start_normal_param = new ZOOM_SDK_DOTNET_WRAP.StartParam4NormalUser();

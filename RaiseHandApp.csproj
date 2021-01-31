@@ -106,7 +106,8 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="zoom_sdk_dotnet_wrap">
+    <Reference Include="zoom_sdk_dotnet_wrap, Version=1.0.7673.31819, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>.\zoom_sdk_dotnet_wrap.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -446,6 +447,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="zoom_sdk_dotnet_wrap.dll" />
+    <Content Include="zoom_sdk_dotnet_wrap.pdb" />
     <Content Include="zSDK.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
