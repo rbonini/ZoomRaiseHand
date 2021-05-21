@@ -19,7 +19,7 @@ namespace RaiseHandApp
             //init sdk
             {
                 ZOOM_SDK_DOTNET_WRAP.InitParam param = new ZOOM_SDK_DOTNET_WRAP.InitParam();
-                param.web_domain = "https://zoom.us";
+                param.web_domain = "https://jworg.zoom.us";
                 ZOOM_SDK_DOTNET_WRAP.SDKError err = CZoomSDKeDotNetWrap.Instance.Initialize(param);
                 if (SDKError.SDKERR_SUCCESS == err)
                 {
