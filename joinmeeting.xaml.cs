@@ -79,6 +79,7 @@ namespace RaiseHandApp
                 case MeetingStatus.MEETING_STATUS_ENDED:
                 case MeetingStatus.MEETING_STATUS_FAILED:
                     {
+
                         if (raisescreen != null)
                         {
                             raisescreen.Hide();
@@ -87,7 +88,10 @@ namespace RaiseHandApp
 
                         Show();
 
-                        feedback.Content = $"Meeting Ended {textBox_meetingnumber_api.Text}: {status}";
+                        if (!(feedback.Content as string).Contains("Failed"))
+                        {
+                            feedback.Content = $"Meeting Ended {textBox_meetingnumber_api.Text}: {status} - {iResult}";
+                        }
                     }
                     break;
 
@@ -348,6 +352,8 @@ namespace RaiseHandApp
             ZOOM_SDK_DOTNET_WRAP.JoinParam4WithoutLogin join_api_param = new ZOOM_SDK_DOTNET_WRAP.JoinParam4WithoutLogin();
             join_api_param.meetingNumber = UInt64.Parse(textBox_meetingnumber_api.Text);
             join_api_param.userName = this.userName;
+            join_api_param.isAudioOff = true;
+            join_api_param.isVideoOff = true;
             param.withoutloginJoin = join_api_param;
 
             ZOOM_SDK_DOTNET_WRAP.SDKError err = ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().Join(param);
