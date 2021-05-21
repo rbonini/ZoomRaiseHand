@@ -88,9 +88,11 @@ namespace RaiseHandApp
 
                         Show();
 
-                        if (!(feedback.Content as string).Contains("Failed"))
+                        var code = (MeetingFailCode) iResult;
+
+                        if (!(feedback.Content as string).Contains("FAILED"))
                         {
-                            feedback.Content = $"Meeting Ended {textBox_meetingnumber_api.Text}: {status} - {iResult}";
+                            feedback.Content = $"Meeting Ended {textBox_meetingnumber_api.Text}: {status} - {code}";
                         }
                     }
                     break;
