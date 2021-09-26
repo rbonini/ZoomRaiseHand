@@ -340,9 +340,6 @@
     <Content Include="wr_ding.pcm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="zoom_sdk_dotnet_wrap.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="zoom_sdk_dotnet_wrap.dll.metagen">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
