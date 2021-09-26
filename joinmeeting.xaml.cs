@@ -394,7 +394,7 @@ namespace RaiseHandApp
             }
 
             start_normal_param.meetingNumber = UInt64.Parse(textBox_meetingnumber_api.Text.Replace("-", "").Replace(" ", ""));
-            start_normal_param.participantId = this.userName;
+            start_normal_param.vanityID = this.userName;
             start_normal_param.isAudioOff = false;
             start_normal_param.isVideoOff = true;
             start_normal_param.isDirectShareDesktop = false;
