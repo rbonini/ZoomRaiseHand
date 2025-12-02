@@ -79,6 +79,7 @@ namespace RaiseHandApp
                 case MeetingStatus.MEETING_STATUS_ENDED:
                 case MeetingStatus.MEETING_STATUS_FAILED:
                     {
+
                         if (raisescreen != null)
                         {
                             raisescreen.Hide();
@@ -87,7 +88,12 @@ namespace RaiseHandApp
 
                         Show();
 
-                        feedback.Content = $"Meeting Ended {textBox_meetingnumber_api.Text}: {status}";
+                        var code = (MeetingFailCode) iResult;
+
+                        if (!(feedback.Content as string).Contains("FAILED"))
+                        {
+                            feedback.Content = $"Meeting Ended {textBox_meetingnumber_api.Text}: {status} - {code}";
+                        }
                     }
                     break;
 
@@ -348,6 +354,8 @@ namespace RaiseHandApp
             ZOOM_SDK_DOTNET_WRAP.JoinParam4WithoutLogin join_api_param = new ZOOM_SDK_DOTNET_WRAP.JoinParam4WithoutLogin();
             join_api_param.meetingNumber = UInt64.Parse(textBox_meetingnumber_api.Text);
             join_api_param.userName = this.userName;
+            join_api_param.isAudioOff = true;
+            join_api_param.isVideoOff = true;
             param.withoutloginJoin = join_api_param;
 
             ZOOM_SDK_DOTNET_WRAP.SDKError err = ZOOM_SDK_DOTNET_WRAP.CZoomSDKeDotNetWrap.Instance.GetMeetingServiceWrap().Join(param);
@@ -386,7 +394,7 @@ namespace RaiseHandApp
             }
 
             start_normal_param.meetingNumber = UInt64.Parse(textBox_meetingnumber_api.Text.Replace("-", "").Replace(" ", ""));
-            start_normal_param.participantId = this.userName;
+            start_normal_param.vanityID = this.userName;
             start_normal_param.isAudioOff = false;
             start_normal_param.isVideoOff = true;
             start_normal_param.isDirectShareDesktop = false;

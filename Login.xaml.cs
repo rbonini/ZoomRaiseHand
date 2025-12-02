@@ -40,7 +40,7 @@ namespace RaiseHandApp
                 Show();
             }
         }
-        public void onLoginRet(LOGINSTATUS ret, IAccountInfo pAccountInfo)
+        public void onLoginRet(LOGINSTATUS ret, IAccountInfo pAccountInfo, LOGINFAILREASON reason)
         {
             Console.WriteLine($"Return: {ret}");
 
